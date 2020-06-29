@@ -44,6 +44,9 @@ defmodule API.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
 
+      # APP Deps
+      {:ecto_enum, "~> 1.4"},
+
       # Umbrella APPs
       {:core, in_umbrella: true}
     ]
