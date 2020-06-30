@@ -18,4 +18,7 @@ defmodule Core.Accounts.Token do
     |> cast(attrs, @required)
     |> validate_required(@required)
   end
+
+  def having_value(queryable, value), do: where(queryable, [q], q.value == ^value)
+  def preload_user(queryable), do: preload(queryable, :user)
 end
