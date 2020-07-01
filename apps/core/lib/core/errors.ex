@@ -57,8 +57,7 @@ defmodule Core.Errors do
   def not_found_if_nil(nil, opts), do: {:error, NotFound.exception(opts)}
   def not_found_if_nil(found, _), do: {:ok, found}
 
-  def forbidden_if_nil(nil, opts), do: {:error, ForbiddenError.exception(opts)}
-  def forbidden_if_nil(found, _opts), do: {:ok, found}
+  def forbidden(opts), do: {:error, ForbiddenError.exception(opts)}
 
   def unauthorized(opts \\ []), do: {:error, UnauthorizedError.exception(opts)}
 end
