@@ -4,6 +4,7 @@ defmodule Core.Accounts.User do
   use Core.Schema
 
   alias Core.Accounts.Token
+  alias Core.Tasks.Task
 
   defenum Type, manager: 0, driver: 1
 
@@ -16,6 +17,7 @@ defmodule Core.Accounts.User do
     field :type, Type
 
     has_one :token, Token
+    has_many :tasks, Task
 
     timestamps()
   end
