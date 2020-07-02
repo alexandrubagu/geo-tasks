@@ -21,8 +21,8 @@ defmodule Core.Factory do
 
   def location_factory do
     %Location{
-      lat: "#{Enum.random(-90..90)}",
-      long: "#{Enum.random(-180..180)}"
+      lat: Enum.random(-90..90),
+      long: Enum.random(-180..180)
     }
   end
 

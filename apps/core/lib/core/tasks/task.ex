@@ -22,6 +22,18 @@ defmodule Core.Tasks.Task do
   def mark_as_done(task), do: change(task, %{state: :done})
   def assign(task, user), do: change(task, %{user_id: user.id, state: :assigned})
 
+  def sort_by_distance(queryable, lat, long) do
+    from q in queryable,
+      order_by:
+        fragment(
+          "point(?, ?) <@>  point((?->>'lat')::float, (?->>'long')::float) ASC",
+          ^lat,
+          ^long,
+          q.pickup,
+          q.pickup
+        )
+  end
+
   @doc false
   def changeset(task, attrs) do
     task

@@ -32,4 +32,13 @@ defmodule Core.Tasks do
     |> Task.assign(user)
     |> Repo.update()
   end
+
+  def list_tasks(lat, long) do
+    Task
+    |> Task.sort_by_distance(lat, long)
+    |> Repo.all()
+    |> wrap_ok()
+  end
+
+  defp wrap_ok(x), do: {:ok, x}
 end

@@ -12,8 +12,8 @@ defmodule Core.TasksTest do
 
   describe "create_task/1" do
     @valid_attrs %{
-      pickup: %{lat: "30.45", long: "150.55"},
-      delivery: %{lat: "30.451", long: "150.551"}
+      pickup: %{lat: 30.45, long: 150.55},
+      delivery: %{lat: 30.451, long: 150.551}
     }
 
     @invalid_attrs %{
@@ -93,6 +93,20 @@ defmodule Core.TasksTest do
       assert updated_task.delivery == task.delivery
       assert updated_task.state == :assigned
       assert updated_task.user_id == user.id
+    end
+  end
+
+  describe "list_tasks" do
+    setup do
+      task1 = insert(:task, pickup: build(:location, lat: -10, long: 10))
+      task2 = insert(:task, pickup: build(:location, lat: 40, long: 40))
+
+      {:ok, tasks: [task1, task2]}
+    end
+
+    test "returns a list of task ordered by distance", %{tasks: tasks} do
+      assert {:ok, tasks} == Tasks.list_tasks(-9, 11)
+      assert {:ok, Enum.reverse(tasks)} == Tasks.list_tasks(44, 44)
     end
   end
 end

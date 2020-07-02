@@ -7,7 +7,7 @@ defmodule CoreTest do
 
   alias Ecto.Changeset
   alias Core.Repo
-  alias Core.Errors.{NotFound, ForbiddenError, UnauthorizedError}
+  alias Core.Errors.{ForbiddenError, UnauthorizedError}
   alias Core.Tasks.Task
 
   describe "create_task/2" do
@@ -74,7 +74,7 @@ defmodule CoreTest do
     end
   end
 
-  describe "mark_as_done/2" do
+  describe "mark_task_as_done/2" do
     setup do
       driver = insert(:user, type: :driver)
       token = insert(:token, user_id: driver.id)
@@ -84,19 +84,21 @@ defmodule CoreTest do
     end
 
     test "returns an error when token is not found", %{task: task} do
-      assert {:error, %UnauthorizedError{}} = Core.mark_as_done("unexisting_token", task.id)
+      assert {:error, %UnauthorizedError{}} = Core.mark_task_as_done("unexisting_token", task.id)
     end
 
     test "returns an error when user is not allowed to update state of a task", %{task: task} do
       manager = insert(:user, type: :manager)
       token = insert(:token, user: manager)
 
-      assert {:error, %ForbiddenError{reason: reason}} = Core.mark_as_done(token.value, task.id)
-      assert reason =~ "is not allowed to perform `mark_as_done`"
+      assert {:error, %ForbiddenError{reason: reason}} =
+               Core.mark_task_as_done(token.value, task.id)
+
+      assert reason =~ "is not allowed to perform `mark_task_as_done`"
     end
 
     test "mark a task as done", %{token: token, task: task} do
-      assert {:ok, %Task{}} = Core.mark_as_done(token.value, task.id)
+      assert {:ok, %Task{}} = Core.mark_task_as_done(token.value, task.id)
     end
   end
 

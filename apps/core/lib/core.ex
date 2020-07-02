@@ -20,9 +20,9 @@ defmodule Core do
     end
   end
 
-  def mark_as_done(token_value, task_id) do
+  def mark_task_as_done(token_value, task_id) do
     with {:ok, user} <- Accounts.authenticate(token_value),
-         :ok <- Authorization.can?(user, :mark_as_done),
+         :ok <- Authorization.can?(user, :mark_task_as_done),
          {:ok, task} <- Tasks.get_task(task_id) do
       Tasks.mark_task_as_done(task)
     end
@@ -33,6 +33,13 @@ defmodule Core do
          :ok <- Authorization.can?(user, :assign_task),
          {:ok, task} <- Tasks.get_task(task_id) do
       Tasks.assign_task(task, user)
+    end
+  end
+
+  def list_tasks(token_value, lat, long) do
+    with {:ok, user} <- Accounts.authenticate(token_value),
+         :ok <- Authorization.can?(user, :list_tasks) do
+      Tasks.list_tasks(lat, long)
     end
   end
 end
