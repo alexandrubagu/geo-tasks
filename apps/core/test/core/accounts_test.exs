@@ -6,7 +6,7 @@ defmodule Core.AccountsTest do
   import Core.Factory
 
   alias Core.Repo
-  alias Core.Errors.UnauthorizedError
+  alias Core.Errors.Unauthorized
   alias Core.Accounts
   alias Core.Accounts.{User, Token}
 
@@ -100,7 +100,7 @@ defmodule Core.AccountsTest do
     end
 
     test "returns an unauthorized error if token doesn't exists" do
-      assert {:error, %UnauthorizedError{}} = Accounts.authenticate("unexisting_token")
+      assert {:error, %Unauthorized{}} = Accounts.authenticate("unexisting_token")
     end
   end
 end

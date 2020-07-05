@@ -17,3 +17,6 @@ config :core, Core.Repo,
 config :api, API.Endpoint,
   http: [port: 4002],
   server: false
+
+# Configure logger
+config :logger, level: :warn

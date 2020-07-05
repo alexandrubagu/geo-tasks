@@ -59,8 +59,6 @@ defmodule Core.TasksTest do
   end
 
   describe "delete_task/1" do
-    @unexisting_task_id Ecto.UUID.generate()
-
     setup _, do: {:ok, task: insert(:task)}
 
     test "returns a task by id", %{task: task} do

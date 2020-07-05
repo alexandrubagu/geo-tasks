@@ -6,8 +6,7 @@ defmodule CoreTest do
   import Core.Factory
 
   alias Ecto.Changeset
-  alias Core.Repo
-  alias Core.Errors.{ForbiddenError, UnauthorizedError}
+  alias Core.Errors.{Forbidden, Unauthorized}
   alias Core.Tasks.Task
 
   describe "create_task/2" do
@@ -26,15 +25,14 @@ defmodule CoreTest do
     end
 
     test "returns an error when token is not found" do
-      assert {:error, %UnauthorizedError{}} = Core.create_task("unexisting_token", @valid_attrs)
+      assert {:error, %Unauthorized{}} = Core.create_task("unexisting_token", @valid_attrs)
     end
 
     test "returns an error when user is not allowed to perform a task creation" do
       driver = insert(:user, type: :driver)
       token = insert(:token, user: driver)
 
-      assert {:error, %ForbiddenError{reason: reason}} =
-               Core.create_task(token.value, @valid_attrs)
+      assert {:error, %Forbidden{reason: reason}} = Core.create_task(token.value, @valid_attrs)
 
       assert reason =~ "is not allowed to perform `create_task`"
     end
@@ -58,14 +56,14 @@ defmodule CoreTest do
     end
 
     test "returns an error when token is not found", %{task: task} do
-      assert {:error, %UnauthorizedError{}} = Core.delete_task("unexisting_token", task.id)
+      assert {:error, %Unauthorized{}} = Core.delete_task("unexisting_token", task.id)
     end
 
     test "returns an error when user is not allowed to perform a task deletion", %{task: task} do
       driver = insert(:user, type: :driver)
       token = insert(:token, user: driver)
 
-      assert {:error, %ForbiddenError{reason: reason}} = Core.delete_task(token.value, task.id)
+      assert {:error, %Forbidden{reason: reason}} = Core.delete_task(token.value, task.id)
       assert reason =~ "is not allowed to perform `delete_task`"
     end
 
@@ -84,15 +82,14 @@ defmodule CoreTest do
     end
 
     test "returns an error when token is not found", %{task: task} do
-      assert {:error, %UnauthorizedError{}} = Core.mark_task_as_done("unexisting_token", task.id)
+      assert {:error, %Unauthorized{}} = Core.mark_task_as_done("unexisting_token", task.id)
     end
 
     test "returns an error when user is not allowed to update state of a task", %{task: task} do
       manager = insert(:user, type: :manager)
       token = insert(:token, user: manager)
 
-      assert {:error, %ForbiddenError{reason: reason}} =
-               Core.mark_task_as_done(token.value, task.id)
+      assert {:error, %Forbidden{reason: reason}} = Core.mark_task_as_done(token.value, task.id)
 
       assert reason =~ "is not allowed to perform `mark_task_as_done`"
     end
@@ -112,14 +109,14 @@ defmodule CoreTest do
     end
 
     test "returns an error when token is not found", %{task: task} do
-      assert {:error, %UnauthorizedError{}} = Core.assign_task("unexisting_token", task.id)
+      assert {:error, %Unauthorized{}} = Core.assign_task("unexisting_token", task.id)
     end
 
     test "returns an error when user is not allowed to update state of a task", %{task: task} do
       manager = insert(:user, type: :manager)
       token = insert(:token, user: manager)
 
-      assert {:error, %ForbiddenError{reason: reason}} = Core.assign_task(token.value, task.id)
+      assert {:error, %Forbidden{reason: reason}} = Core.assign_task(token.value, task.id)
       assert reason =~ "is not allowed to perform `assign_task`"
     end
 
