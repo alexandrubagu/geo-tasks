@@ -3,6 +3,8 @@ defmodule Core.Errors do
   Core Errors
   """
 
+  # credo:disable-for-this-file Credo.Check.Consistency.ExceptionNames
+
   defmodule NotFound do
     @moduledoc """
     Represent the error of not finding a resource

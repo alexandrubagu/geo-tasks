@@ -1,4 +1,6 @@
 defmodule Core.Tasks.Location do
+  @moduledoc false
+
   use Core.Schema
 
   @required ~w(lat long)a

@@ -1,5 +1,8 @@
 # GeoTasks
 
+[![Elixir CI](https://github.com/alexandrubagu/geo-tasks/workflows/Elixir%20CI/badge.svg)](https://github.com/alexandrubagu/geo-tasks/actions) [![Coverage Status](https://coveralls.io/repos/github/alexandrubagu/geo-tasks/badge.svg?branch=master)](https://coveralls.io/github/alexandrubagu/geo-tasks?branch=master)
+
+
 ### Setup
 ```
 git clone git@github.com:alexandrubagu/geo-tasks.git
@@ -14,7 +17,7 @@ mix test
 ```
 
 
-### Manual testing
+### Manual testing example
 ```bash
 curl -X POST \
      -H "Content-Type: application/json" \

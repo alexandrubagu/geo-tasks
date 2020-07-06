@@ -6,7 +6,13 @@ defmodule GeoTasks.MixProject do
       apps_path: "apps",
       version: "0.1.0",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
+      dialyzer: [
+        plt_add_deps: :transitive,
+        plt_add_apps: [:mix],
+        flags: [:race_conditions, :no_opaque]
+      ]
     ]
   end
 
@@ -18,7 +24,8 @@ defmodule GeoTasks.MixProject do
   defp deps do
     [
       {:credo, "~> 1.4"},
-      {:dialyxir, "~> 1.0"}
+      {:dialyxir, "~> 1.0"},
+      {:excoveralls, "~> 0.13"}
     ]
   end
 end
