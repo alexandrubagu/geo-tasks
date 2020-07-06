@@ -35,5 +35,6 @@ defmodule API.FallbackController do
     conn
     |> put_resp_content_type("application/json")
     |> resp(http_status, Jason.encode!(response_body))
+    |> halt()
   end
 end

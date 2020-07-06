@@ -40,4 +40,8 @@ defmodule API.ConnCase do
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
+
+  def authorize_conn(conn, token) do
+    Plug.Conn.put_req_header(conn, "authorization", "Bearer #{token}")
+  end
 end
