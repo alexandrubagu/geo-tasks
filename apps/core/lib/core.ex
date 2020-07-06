@@ -6,6 +6,7 @@ defmodule Core do
   alias Core.Authorization
 
   defdelegate authenticate(token), to: Accounts
+  defdelegate validate_location(params), to: Tasks
 
   def create_task(attrs, user) do
     with :ok <- Authorization.can?(user, :create_task) do

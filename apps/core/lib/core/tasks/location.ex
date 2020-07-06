@@ -8,6 +8,14 @@ defmodule Core.Tasks.Location do
     field :long, :float
   end
 
+  def validate(params) do
+    case changeset(%__MODULE__{}, params) do
+      %{valid?: true} = changeset -> {:ok, apply_changes(changeset)}
+      %{valid?: false} = changeset -> {:error, changeset}
+    end
+  end
+
+  @doc false
   def changeset(location, attrs) do
     location
     |> cast(attrs, @required)

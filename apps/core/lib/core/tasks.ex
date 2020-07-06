@@ -5,7 +5,7 @@ defmodule Core.Tasks do
 
   alias Core.Repo
   alias Core.Tasks.Task
-  alias Core.Tasks.Task
+  alias Core.Tasks.Location
 
   def create_task(attrs) do
     %Task{}
@@ -39,6 +39,8 @@ defmodule Core.Tasks do
     |> Repo.all()
     |> wrap_ok()
   end
+
+  defdelegate validate_location(params), to: Location, as: :validate
 
   defp wrap_ok(x), do: {:ok, x}
 end
