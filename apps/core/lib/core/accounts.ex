@@ -24,10 +24,10 @@ defmodule Core.Accounts do
 
   def delete_token(%Token{} = token), do: Repo.delete(token)
 
-  def authenticate(token_value) do
+  def authenticate(token) do
     result =
       Token
-      |> Token.having_value(token_value)
+      |> Token.having_value(token)
       |> Token.preload_user()
       |> Repo.one()
 
