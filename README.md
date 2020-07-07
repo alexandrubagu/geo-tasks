@@ -1,6 +1,6 @@
 # GeoTasks
 
-[![Elixir CI](https://github.com/alexandrubagu/geo-tasks/workflows/Elixir%20CI/badge.svg)](https://github.com/alexandrubagu/geo-tasks/actions) [![Coverage Status](https://coveralls.io/repos/github/alexandrubagu/geo-tasks/badge.svg?branch=master)](https://coveralls.io/github/alexandrubagu/geo-tasks?branch=master)
+[![Elixir CI](https://github.com/alexandrubagu/geo-tasks/workflows/Elixir%20CI/badge.svg?branch=master)](https://github.com/alexandrubagu/geo-tasks/actions) [![Coverage Status](https://coveralls.io/repos/github/alexandrubagu/geo-tasks/badge.svg?branch=master)](https://coveralls.io/github/alexandrubagu/geo-tasks?branch=master)
 
 
 ### Setup
